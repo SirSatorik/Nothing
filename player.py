@@ -36,6 +36,10 @@ class Player:
         self.textures = textures
 
         self.speed = 0.5
+        self.vector_move = {"left": False,
+                            "right": False,
+                            "up": False,
+                            "down": False}
 
     def draw(self,
              screen: pygame.surface.Surface) -> None:
@@ -54,8 +58,7 @@ class Player:
             raw_texture,
             self.size)
 
-        if self.moving_right:
-            texture = pygame.transform.flip(texture, True, False)
+        texture = pygame.transform.flip(texture, self.moving_right, False)
 
         screen.blit(texture, (self.x, self.y))
 
