@@ -54,6 +54,9 @@ class Player:
             raw_texture,
             self.size)
 
+        if self.moving_right:
+            texture = pygame.transform.flip(texture, True, False)
+
         screen.blit(texture, (self.x, self.y))
 
     def new_event(self,
