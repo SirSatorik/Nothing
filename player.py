@@ -54,6 +54,7 @@ class Player:
         """
 
         raw_texture = pygame.image.load(self.textures["player"])
+
         texture = self.geometry.resize_image_proportionally(
             raw_texture,
             self.size)
