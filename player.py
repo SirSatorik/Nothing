@@ -36,10 +36,6 @@ class Player:
         self.textures = textures
 
         self.speed = 0.5
-        self.vector_move = {"left": False,
-                            "right": False,
-                            "up": False,
-                            "down": False}
 
     def draw(self,
              screen: pygame.surface.Surface) -> None:
