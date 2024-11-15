@@ -1,5 +1,4 @@
 import pygame
-import math
 
 class Geometry:
     def __init__(self) -> None:
@@ -7,10 +6,8 @@ class Geometry:
         Инициализирует класс Geometry
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
         pass
 

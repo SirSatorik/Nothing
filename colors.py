@@ -6,10 +6,8 @@ class Colors:
         Инициализирует класс Colors
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
 
         self.red = (255, 0, 0)

@@ -1,7 +1,8 @@
 import pygame
+import math
 
+from Vector2 import Vector2
 import geometry
-from colors import Colors
 
 class Player:
     def __init__(self,
@@ -14,14 +15,15 @@ class Player:
         Инициализирует класс Player
 
         Args:
-            Ничего
 
         Return:
-            Ничего
+
         """
 
-        self.x = x
-        self.y = y
+        self.position = Vector2(x, y)
+        self.angle = 0
+
+        self.event : pygame.event = pygame.event
 
         self.size = size
 
@@ -37,6 +39,47 @@ class Player:
 
         self.speed = 0.5
 
+        raw_texture = pygame.image.load(self.textures["player"])
+
+        self.texture = self.geometry.resize_image_proportionally(
+            raw_texture,
+            self.size)
+
+    def look_at(self,
+                target_x : int,
+                target_y : int) -> None:
+        """Поворачивает игрока в сторону целевых координат.
+
+        Args:
+            target_x - позиция куда надо посмотреть по x
+
+            target_y - позиция куда надо посмотреть по y
+        Return:
+        """
+
+        # Вычисляем разницу координат
+        dx = target_x - self.position.x
+        dy = target_y - self.position.y
+
+        # Вычисляем угол в радианах
+        angle_rad = math.atan2(dy, dx)
+
+        # Преобразуем угол в градусы
+        angle_deg = math.degrees(angle_rad)
+
+        # Корректируем угол, чтобы он был в диапазоне 0-360 градусов
+        angle_deg = (angle_deg + 360) % 360
+
+        # Плавный поворот (можно настроить скорость поворота)
+        rotation_speed = 5  # Градусов в кадре
+        if self.angle != angle_deg:
+            if abs(self.angle - angle_deg) <= rotation_speed:
+                self.angle = angle_deg
+            elif self.angle < angle_deg:
+                self.angle = min(self.angle + rotation_speed, angle_deg)
+            else:
+                self.angle = max(self.angle - rotation_speed, angle_deg)
+
     def draw(self,
              screen: pygame.surface.Surface) -> None:
         """
@@ -46,18 +89,11 @@ class Player:
             screen - экран для отрисовки
 
         Return:
-            Ничего
         """
 
-        raw_texture = pygame.image.load(self.textures["player"])
+        texture = pygame.transform.flip(self.texture, self.moving_right, False)
 
-        texture = self.geometry.resize_image_proportionally(
-            raw_texture,
-            self.size)
-
-        texture = pygame.transform.flip(texture, self.moving_right, False)
-
-        screen.blit(texture, (self.x, self.y))
+        screen.blit(texture, (self.position.x, self.position.y))
 
     def new_event(self,
                   event : pygame.event) -> None:
@@ -68,8 +104,9 @@ class Player:
             event - эвент
 
         Return:
-            Ничего
         """
+
+        self.event = event
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
@@ -96,18 +133,16 @@ class Player:
         Перемещает игрока
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
 
         if self.is_move:
             if self.moving_left:
-                self.x -= self.speed
+                self.position.x -= self.speed
             if self.moving_right:
-                self.x += self.speed
+                self.position.x += self.speed
             if self.moving_up:
-                self.y -= self.speed
+                self.position.y -= self.speed
             if self.moving_down:
-                self.y += self.speed
+                self.position.y += self.speed

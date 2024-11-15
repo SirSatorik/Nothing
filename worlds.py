@@ -33,7 +33,6 @@ class Worlds:
 
 
         Return:
-            Ничего
         """
 
         self.screen = screen
@@ -54,10 +53,8 @@ class Worlds:
         Основная сцена игры
 
         Args:
-             Ничего
 
         Return:
-            Ничего
         """
 
         player = Player(300, 250, (60, 60), self.geometry, self.textures)

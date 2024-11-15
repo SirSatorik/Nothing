@@ -9,10 +9,8 @@ class Game:
         Инициализирует класс Game
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
 
         pass
@@ -26,7 +24,6 @@ class Game:
             scene - сцена на которую идёт переход
 
         Return:
-            Ничего
         """
         scene()
 
@@ -35,10 +32,8 @@ class Game:
         Запускает игру
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
 
         resources = Resources()

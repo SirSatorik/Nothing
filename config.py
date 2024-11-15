@@ -7,10 +7,8 @@ class Resources:
         Инициализирует класс Resources
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
 
         self.start_path = os.path.dirname(os.path.abspath(__file__))
@@ -49,7 +47,6 @@ class Resources:
             file_path - путь к json
 
         Return:
-            Ничего
         """
 
         with open(file_path, 'w') as f:
@@ -60,10 +57,8 @@ class Resources:
         Проверяет существуют ли файлы в словаре textures
 
         Args:
-            Ничего
 
         Return:
-            Ничего
         """
 
         for key in self.textures:
